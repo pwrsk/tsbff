@@ -1,3 +1,4 @@
+loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 local function setMaterial(part)
     part.Material = Enum.Material.Glass
 end
@@ -41,4 +42,3 @@ game:GetService("UserInputService").InputBegan:Connect(function(input)
 end)
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/pwrsk/tsballinone/main/tsballinone"))()
-loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
