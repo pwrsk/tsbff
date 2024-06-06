@@ -21,15 +21,22 @@ local originalPosition = character.HumanoidRootPart.Position
 
 -- Координаты для телепортации
 local teleportPosition = Vector3.new(1562, 407, 22495)
+local savedPosition = nil
 
 -- Функция телепортации на заданные координаты
 local function teleportToCoordinates()
+    savedPosition = character.HumanoidRootPart.Position -- Сохраняем текущие координаты игрока
     character:SetPrimaryPartCFrame(CFrame.new(teleportPosition))
 end
 
--- Функция возвращения на исходное место
-local function returnToOriginalPosition()
-    character:SetPrimaryPartCFrame(CFrame.new(originalPosition))
+-- Функция возвращения на исходное место или сохраненное место
+local function returnToOriginalOrSavedPosition()
+    if savedPosition then
+        character:SetPrimaryPartCFrame(CFrame.new(savedPosition)) -- Возвращаемся на сохраненное место
+        savedPosition = nil -- Очищаем сохраненное место после использования
+    else
+        character:SetPrimaryPartCFrame(CFrame.new(originalPosition)) -- Возвращаемся на исходное место спавна игрока
+    end
 end
 
 -- Обработка нажатий клавиш на клавиатуре
@@ -37,7 +44,7 @@ game:GetService("UserInputService").InputBegan:Connect(function(input)
     if input.KeyCode == Enum.KeyCode.X then
         teleportToCoordinates()
     elseif input.KeyCode == Enum.KeyCode.Z then
-        returnToOriginalPosition()
+        returnToOriginalOrSavedPosition()
     end
 end)
 
