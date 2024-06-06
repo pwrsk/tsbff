@@ -13,39 +13,4 @@ local function applyMaterialToChildren(parent)
 end
 
 applyMaterialToChildren(game.Workspace.Map)
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-
--- Исходные координаты игрока
-local originalPosition = character.HumanoidRootPart.Position
-
--- Координаты для телепортации
-local teleportPosition = Vector3.new(1562, 407, 22495)
-local savedPosition = nil
-
--- Функция телепортации на заданные координаты
-local function teleportToCoordinates()
-    savedPosition = character.HumanoidRootPart.Position -- Сохраняем текущие координаты игрока
-    character:SetPrimaryPartCFrame(CFrame.new(teleportPosition))
-end
-
--- Функция возвращения на исходное место или сохраненное место
-local function returnToOriginalOrSavedPosition()
-    if savedPosition then
-        character:SetPrimaryPartCFrame(CFrame.new(savedPosition)) -- Возвращаемся на сохраненное место
-        savedPosition = nil -- Очищаем сохраненное место после использования
-    else
-        character:SetPrimaryPartCFrame(CFrame.new(originalPosition)) -- Возвращаемся на исходное место спавна игрока
-    end
-end
-
--- Обработка нажатий клавиш на клавиатуре
-game:GetService("UserInputService").InputBegan:Connect(function(input)
-    if input.KeyCode == Enum.KeyCode.X then
-        teleportToCoordinates()
-    elseif input.KeyCode == Enum.KeyCode.Z then
-        returnToOriginalOrSavedPosition()
-    end
-end)
-
 loadstring(game:HttpGet("https://raw.githubusercontent.com/pwrsk/tsballinone/main/tsballinone"))()
